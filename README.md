@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Chirp — Social Media MVP (X / Twitter Lite)
 
 [![CI](https://github.com/Hasib-17/social-media-mvp/actions/workflows/ci.yml/badge.svg)](https://github.com/Hasib-17/social-media-mvp/actions/workflows/ci.yml)
@@ -207,3 +208,6 @@ reviewed, tested and adapted by the author, in line with the course's academic-i
 ## License
 
 MIT
+=======
+# social-media-MVP
+>>>>>>> e2d97a84b8b86c5452f2703240d8c43790fc9005
