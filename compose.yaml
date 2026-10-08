@@ -1,0 +1,46 @@
+# Chirp — run the whole stack with:  docker compose up --build
+# Then open http://localhost:8080
+#
+# Every variable has a safe local default, so no .env file is required.
+# To override, copy .env.example to .env and edit it.
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-chirp}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-chirp_dev_password}
+      POSTGRES_DB: ${POSTGRES_DB:-chirp}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build: ./backend
+    restart: unless-stopped
+    environment:
+      PORT: 3000
+      DATABASE_URL: postgres://${POSTGRES_USER:-chirp}:${POSTGRES_PASSWORD:-chirp_dev_password}@db:5432/${POSTGRES_DB:-chirp}
+      JWT_SECRET: ${JWT_SECRET:-dev-only-insecure-secret-change-me}
+      COOKIE_SECURE: "false"
+      TRUST_PROXY: 1
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    build: ./frontend
+    restart: unless-stopped
+    ports:
+      - "${WEB_PORT:-8080}:80"
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  pgdata:

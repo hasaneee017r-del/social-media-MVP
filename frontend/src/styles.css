@@ -1,0 +1,122 @@
+:root {
+  --bg: #f5f8fa;
+  --surface: #ffffff;
+  --text: #0f1419;
+  --muted: #536471;
+  --border: #e1e8ed;
+  --accent: #1d9bf0;
+  --accent-hover: #1a8cd8;
+  --danger: #d0263b;
+  --danger-bg: #fdecee;
+  --warn: #b26b00;
+  --radius: 14px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b0f14;
+    --surface: #15202b;
+    --text: #e7e9ea;
+    --muted: #8b98a5;
+    --border: #2f3b47;
+    --accent-hover: #3aa8f2;
+    --danger: #ff6b7d;
+    --danger-bg: #3a1a20;
+    --warn: #ffb547;
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
+}
+
+a { color: var(--accent); }
+
+h1 { font-size: 1.25rem; margin: 0 0 1rem; }
+
+.container { max-width: 640px; margin: 0 auto; padding: 0 16px; }
+.center { text-align: center; }
+.muted { color: var(--muted); }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;
+}
+
+/* Header */
+.header {
+  position: sticky; top: 0; z-index: 1;
+  background: var(--surface); border-bottom: 1px solid var(--border);
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.25rem; color: var(--text); text-decoration: none; }
+.header-user { display: flex; align-items: center; gap: 12px; font-size: 0.9rem; min-width: 0; }
+.header-user span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+main.container { padding-top: 20px; padding-bottom: 40px; }
+
+/* Cards and buttons */
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px;
+}
+
+.btn {
+  background: var(--accent); color: #fff; border: 0; border-radius: 999px;
+  padding: 8px 18px; font-weight: 700; font-size: 0.95rem; cursor: pointer;
+}
+.btn:hover:not(:disabled) { background: var(--accent-hover); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover:not(:disabled) { background: var(--bg); }
+.btn-block { width: 100%; margin-top: 20px; padding: 10px; }
+
+.error {
+  color: var(--danger); background: var(--danger-bg);
+  border-radius: 8px; padding: 8px 12px; margin: 8px 0;
+}
+
+/* Auth */
+.auth { display: flex; justify-content: center; padding-top: 32px; }
+.auth-card { width: 100%; max-width: 400px; display: flex; flex-direction: column; padding: 28px; }
+.auth-card label { font-weight: 600; margin-top: 14px; margin-bottom: 4px; }
+.auth-card input {
+  padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px;
+  font-size: 1rem; background: var(--bg); color: var(--text);
+}
+.auth-card input[aria-invalid='true'] { border-color: var(--danger); }
+.auth-card small { margin-top: 4px; }
+
+/* Composer */
+.composer textarea {
+  width: 100%; border: 0; resize: vertical; font: inherit; font-size: 1.1rem;
+  background: transparent; color: var(--text); min-height: 72px;
+}
+.composer-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 6px; }
+.counter { font-size: 0.85rem; color: var(--muted); }
+.counter.warn { color: var(--warn); }
+.counter.over { color: var(--danger); font-weight: 700; }
+
+/* Feed */
+.feed-header { display: flex; justify-content: space-between; align-items: center; margin: 24px 0 12px; }
+.feed-header h1 { margin: 0; }
+.post-list { list-style: none; margin: 0 0 16px; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.post-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 0.9rem; }
+.avatar {
+  width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: #fff;
+  display: inline-flex; align-items: center; justify-content: center; font-weight: 700;
+}
+.post-content { margin: 8px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+@media (max-width: 480px) {
+  .header-user span { display: none; }
+}
